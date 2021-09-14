@@ -19,6 +19,16 @@ module.exports = function (app) {
     app.use('/api/attendence', require('../controllers/attendence'));
     app.use('/api/leavedemp', require('../controllers/leavedemp'));
     app.use('/uploads', express.static('uploads'));
-    // @nuwanthika: anjali
+    // @anjali: end
 
+
+
+
+    // author @anjali ;
+    app.use('/api/feedback', require('../controllers/feedback'));
+    app.use('/api/contact', require('../controllers/contact'));
+    app.use('/api/FAQs', require('../controllers/FAQs'));
+    app.use('/api/suggestion', require('../controllers/suggestion')); 
+    // @anjali: end
+ 
 }
