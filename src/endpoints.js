@@ -30,5 +30,13 @@ module.exports = function (app) {
     app.use('/api/FAQs', require('../controllers/FAQs'));
     app.use('/api/suggestion', require('../controllers/suggestion')); 
     // @kithmini: end
+
+
+    // @chanduni ;
+    app.use('/api', require('../controllers/admincat'));
+    app.use('/api', require('../controllers/posts'));
+    // @chanduni: end
+
+
  
 }
