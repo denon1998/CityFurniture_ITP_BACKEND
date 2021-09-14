@@ -24,11 +24,11 @@ module.exports = function (app) {
 
 
 
-    // author @anjali ;
+    // author @kithmini ;
     app.use('/api/feedback', require('../controllers/feedback'));
     app.use('/api/contact', require('../controllers/contact'));
     app.use('/api/FAQs', require('../controllers/FAQs'));
     app.use('/api/suggestion', require('../controllers/suggestion')); 
-    // @anjali: end
+    // @kithmini: end
  
 }
