@@ -34,12 +34,23 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// author @nuwanthika
 app.use('/api/drivers', require('./controllers/driver'));
 app.use('/api/vehicles', require('./controllers/vehicle'));
 app.use('/api/deliveries', require('./controllers/delivery'));
 app.use('/api/orders', require('./controllers/order'));
-
+// @nuwanthika: end
  
+
+// author @anjali ;
+app.use('/api/employees', require('./controllers/employees'));
+app.use('/api/salary', require('./controllers/salary'));
+app.use('/api/attendence', require('./controllers/attendence'));
+app.use('/api/leavedemp', require('./controllers/leavedemp'));
+app.use('/uploads',express.static('uploads'));
+// @nuwanthika: anjali
+ 
+
 var server = app.listen(_PORT, function () {
   var host = server.address().address
   var port = server.address().port
