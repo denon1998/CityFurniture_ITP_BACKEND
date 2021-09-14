@@ -57,6 +57,9 @@ module.exports = function (app) {
     // @Samali: end
 
     // @Supiniduni
+    app.use('/api', require('../controllers/postsCategories'));
+    app.use('/api', require('../controllers/postsOffers'));
+    app.use('/api', require('../controllers/product_posts'));
     // @Supiniduni: end
 
  
