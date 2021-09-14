@@ -39,12 +39,23 @@ module.exports = function (app) {
 
 
 
-    // @shavindra ;
+    // @shavinda ;
     app.use('/api', require('../controllers/supPosts'));
     app.use('/api', require('../controllers/product_posts'));
     app.use('/api', require('../controllers/categoryPosts'));
-    // @shavindra: end
+    // @shavinda: end
 
+    // @Priyankara
+
+    app.use('/api/exercises', require('../controllers/exercises'));
+    app.use('/api/users', require('../controllers/users'));
+    // @Priyankara: end 
+    
+    // @Samali
+    // @Samali: end
+
+    // @Supiniduni
+    // @Supiniduni: end
 
  
 }
