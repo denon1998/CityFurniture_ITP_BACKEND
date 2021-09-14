@@ -52,6 +52,8 @@ module.exports = function (app) {
     // @Priyankara: end 
     
     // @Samali
+    app.use('/api', require('../controllers/cardpay'));
+    app.use('/api/user', require('../controllers/users'));
     // @Samali: end
 
     // @Supiniduni
