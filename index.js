@@ -1,9 +1,14 @@
 var express = require('express');
 var app = express();
 var cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger_output.json'); 
+
+app.use('/api-docs', swaggerUi.serve);
+app.get('/api-docs', swaggerUi.setup(swaggerDocument));
 const mongoose = require('mongoose');
 
-const _PORT = process.env.PORT;
+const _PORT = process.env.PORT || 8081;
 
 app.options('*', cors());
 app.use(cors({
@@ -34,22 +39,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// author @nuwanthika
-app.use('/api/drivers', require('./controllers/driver'));
-app.use('/api/vehicles', require('./controllers/vehicle'));
-app.use('/api/deliveries', require('./controllers/delivery'));
-app.use('/api/orders', require('./controllers/order'));
-// @nuwanthika: end
- 
-
-// author @anjali ;
-app.use('/api/employees', require('./controllers/employees'));
-app.use('/api/salary', require('./controllers/salary'));
-app.use('/api/attendence', require('./controllers/attendence'));
-app.use('/api/leavedemp', require('./controllers/leavedemp'));
-app.use('/uploads',express.static('uploads'));
-// @nuwanthika: anjali
- 
+require('./src/endpoints')(app)
 
 var server = app.listen(_PORT, function () {
   var host = server.address().address
