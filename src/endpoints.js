@@ -38,5 +38,13 @@ module.exports = function (app) {
     // @chanduni: end
 
 
+
+    // @shavindra ;
+    app.use('/api', require('../controllers/supPosts'));
+    app.use('/api', require('../controllers/product_posts'));
+    app.use('/api', require('../controllers/categoryPosts'));
+    // @shavindra: end
+
+
  
 }
