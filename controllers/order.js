@@ -68,9 +68,13 @@ router.get('/_search', function (req, res, next) {
 
 	}
 	const searchQ={
-		orderID:{ $regex:searchQuery, $options:"i"},
-		receverAddress:{ $regex:searchQuery, $options:"i"},
-		assignedDriver:{ $regex:searchQuery, $options:"i"},
+		$or:[
+		 
+				{orderID:{ $regex:searchQuery, $options:"i"}},
+				{receverAddress:{ $regex:searchQuery, $options:"i"}},
+				{assignedDriver:{ $regex:searchQuery, $options:"i"}},
+		 
+		]
 	}
 
 	console.log(searchQuery);
