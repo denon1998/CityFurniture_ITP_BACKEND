@@ -46,14 +46,13 @@ module.exports = function (app) {
     // @shavinda: end
 
     // @Priyankara
-
     app.use('/api/exercises', require('../controllers/exercises'));
     app.use('/api/users', require('../controllers/users'));
     // @Priyankara: end 
     
     // @Samali
     app.use('/api', require('../controllers/cardpay'));
-    app.use('/api/user', require('../controllers/users'));
+    app.use('/api', require('../controllers/paypal'));
     // @Samali: end
 
     // @Supiniduni
