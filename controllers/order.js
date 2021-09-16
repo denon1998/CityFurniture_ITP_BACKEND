@@ -67,14 +67,19 @@ router.get('/_search', function (req, res, next) {
 
 
 	}
+	const searchQ={
+		orderID:{ $regex:searchQuery, $options:"i"},
+		receverAddress:{ $regex:searchQuery, $options:"i"},
+		assignedDriver:{ $regex:searchQuery, $options:"i"},
+	}
 
 	console.log(searchQuery);
 	Order 
-		.find(query,
+		.find(searchQ,
 			(e, r) => {
 				res.setHeader('X-Total-Count', r.length) 
 				Order 
-					.find(query,
+					.find(searchQ,
 						(ee, rr) => { 
 							res.json(rr)
 						} 
