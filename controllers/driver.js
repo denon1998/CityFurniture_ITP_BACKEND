@@ -36,15 +36,9 @@ router.get('/_search', function (req, res, next) {
 	var size = Number(req.query.size ?? 5);
 	var searchQuery = req.query.query ?? '*';
 
-	const query = {
-		$or: [{ empID: new RegExp((searchQuery), "i") },
-		{ empName: new RegExp((searchQuery), "i") },
-		{ vehicleID: new RegExp((searchQuery), "i") },
-		{ currentOrderID: new RegExp((searchQuery), "i") },
-		{ contactNumber: new RegExp((searchQuery), "i") },]
+	const query = { $text: { $search: searchQuery } }
 
-	}
-	console.log(searchQuery);
+	console.log(query);
 	Driver.find(query,
 		(e, r) => {
 			res.setHeader('X-Total-Count', r.length)

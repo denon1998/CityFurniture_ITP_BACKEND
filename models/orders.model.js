@@ -14,4 +14,5 @@ const mongoose = require('mongoose');
 	assignedDriver: String
 
 });
+OrderModel.index({'$**': 'text'});
 module.exports = OrderModel;

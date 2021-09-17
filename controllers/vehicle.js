@@ -61,14 +61,8 @@ router.get('/_search', function (req, res, next) {
 	var searchQuery = req.query.query ?? '*';
 
 
-	const query = {
-		$or: [
-			{ vehicleID: new RegExp((searchQuery), "i") },
-			{ vehicleLicenseNO: new RegExp((searchQuery), "i") },
-			{ mileage: new RegExp((searchQuery), "i") },
-		//  { nextServiceReminder: new RegExp((searchQuery), "i") },
-		]
-	};
+	const query = { $text: { $search: searchQuery } }
+
 	console.log(searchQuery);
 	Vehicle 
 		.find(query,

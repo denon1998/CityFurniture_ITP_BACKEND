@@ -8,4 +8,6 @@ const VehicleModel = new mongoose.Schema({
 	nextServiceReminder: Date,
 
 });
+VehicleModel.index({'$**': 'text'});
+
 module.exports = VehicleModel;

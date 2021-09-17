@@ -9,4 +9,6 @@ const mongoose = require('mongoose');
 	contactNumber: String,
 
 });
+DriverModel.index({'$**': 'text'});
+
 module.exports = DriverModel;

@@ -1,11 +1,11 @@
 const { query } = require('express');
 var express = require('express');
 var router = express.Router();
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
 const OrderModel = require('../models/orders.model');
 
 const Order = mongoose.model('order', OrderModel);
-
+// {$text: {$search: searchString}}
 /* GET  all order listing.    http://localhost:8081/api/order/         */
 
 router.get('/', function (req, res, next) {
@@ -43,7 +43,7 @@ router.get('/', function (req, res, next) {
 router.get('/getById/:id', function (req, res, next) {
 
 
-	Order.find({ "_id":  mongoose.Types.ObjectId(req.params.id) },
+	Order.find({ "_id": mongoose.Types.ObjectId(req.params.id) },
 		(e, r) => {
 			res.json(r[0])
 		}
@@ -60,37 +60,19 @@ router.get('/_search', function (req, res, next) {
 	var size = Number(req.query.size ?? 5);
 	var searchQuery = req.query.query ?? '*';
 
-	const query = {
-		$or: [{ orderID: new RegExp((searchQuery), "i") },
-		{ receverAddress: new RegExp((searchQuery), "i") },
-		{ assignedDriver: new RegExp((searchQuery), "i") },]
+	const query = { $text: { $search: searchQuery } }
 
-
-	}
-	const searchQ={
-		$or:[
-		 
-				{orderID:{ $regex:searchQuery, $options:"i"}},
-				{receverAddress:{ $regex:searchQuery, $options:"i"}},
-				{assignedDriver:{ $regex:searchQuery, $options:"i"}},
-		 
-		]
-	}
-
-	console.log(searchQuery);
-	Order 
-		.find(searchQ,
+	console.log(query);
+	Order
+		.find({ $text: { $search: query } },
 			(e, r) => {
-				res.setHeader('X-Total-Count', r.length) 
-				Order 
-					.find(searchQ,
-						(ee, rr) => { 
-							res.json(rr)
-						} 
-					)
-					.limit(size)
-					.skip(size * page);
-			} 
+				res.setHeader('X-Total-Count', r.length)
+				Order.find({ $text: { $search: query } },
+					(ee, rr) => {
+						res.json(rr)
+					}
+				).limit(size).skip(size * page);
+			}
 		)
 
 });
@@ -111,13 +93,13 @@ router.route("/").put(function (req, res) {
 	var { orderID, name, postalNo, street, town, contactNo, orderDate, status, assignedDriver, _id } = req.body;
 
 
-	const query = { "_id":  mongoose.Types.ObjectId(_id) };
+	const query = { "_id": mongoose.Types.ObjectId(_id) };
 	const update = {
 		"$set": {
 			orderID,
 			name,
 			postalNo,
-			street ,
+			street,
 			town,
 			contactNo,
 			orderDate,

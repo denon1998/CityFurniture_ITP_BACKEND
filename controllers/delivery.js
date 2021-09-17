@@ -49,16 +49,9 @@ router.get('/_search', function (req, res, next) {
 	var size = Number(req.query.size ?? 5);
 	var searchQuery = req.query.query ?? '*';
 
-	const query = {
-		$or: [{ deliveryID: new RegExp((searchQuery), "i") },
-		{ orderID: new RegExp((searchQuery), "i") },
-		{ receiverAddress: new RegExp((searchQuery), "i") },
-		{ assignedDriver: new RegExp((searchQuery), "i") },
-		{ latitude: new RegExp((searchQuery), "i") },
-		{ longtude: new RegExp((searchQuery), "i") },
-		{ status: new RegExp((searchQuery), "i") },]
-	}
-	console.log(searchQuery);
+	const query = { $text: { $search: searchQuery } }
+
+	console.log(query);
 	Delivery 
 		.find(query,
 			(e, r) => {
