@@ -76,7 +76,7 @@ router.get('/_search', function (req, res, next) {
 					Order.find({ $text: { $search: query } },
 						(ee, rr) => {
 							res.json(rr)
-						}
+						} 
 					).limit(size).skip(size * page);
 				}
 			)
