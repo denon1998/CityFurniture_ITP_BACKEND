@@ -7,7 +7,7 @@ OrderModel.index({'$**': 'text'});
 
 const Order = mongoose.model('order', OrderModel);
 
-OrderModel.index({'$**': 'text'});
+// OrderModel.index({'$**': 'text'}); 
 // {$text: {$search: searchString}}
 /* GET  all order listing.    http://localhost:8081/api/order/         */
 
