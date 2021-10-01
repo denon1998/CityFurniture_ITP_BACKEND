@@ -14,6 +14,6 @@ const mongoose = require('mongoose');
 
 });
 
-DeliveryModel.index({'$**': 'text'});
+// DeliveryModel.index({'$**': 'text'});
 
 module.exports = DeliveryModel;
