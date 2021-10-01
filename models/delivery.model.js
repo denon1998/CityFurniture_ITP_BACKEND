@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
  const DeliveryModel = new mongoose.Schema({
     _id: mongoose.ObjectId,
-
     deliveryID: String,
     orderID: String,
     receiverAddress: String,
@@ -14,6 +13,6 @@ const mongoose = require('mongoose');
 
 });
 
-// DeliveryModel.index({'$**': 'text'});
+DeliveryModel.index({'$**': 'text'});
 
 module.exports = DeliveryModel;
