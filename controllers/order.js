@@ -67,23 +67,20 @@ router.get('/_search', function (req, res, next) {
 
 	const query = { $text: { $search: searchQuery } }
 	OrderModel.index({ '$**': 'text' });
-	try {
+ 
 		console.log(query);
 		Order
-			.find({ $text: { $search: query } },
+			.find(query,
 				(e, r) => {
 					res.setHeader('X-Total-Count', r.length)
-					Order.find({ $text: { $search: query } },
+					Order.find(query,
 						(ee, rr) => {
 							res.json(rr)
 						} 
 					).limit(size).skip(size * page);
 				}
 			)
-
-	} catch (e) {
-		console.log(e)
-	}
+ 
 
 });
 
