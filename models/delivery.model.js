@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
  const DeliveryModel = new mongoose.Schema({
     _id: mongoose.ObjectId,
-
     deliveryID: String,
     orderID: String,
     receiverAddress: String,

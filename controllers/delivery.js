@@ -1,14 +1,17 @@
 var express = require('express');
 var router = express.Router();
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
 const DeliveryModel = require('../models/delivery.model');
+DeliveryModel.index({ '$**': 'text' });
 
 const Delivery = mongoose.model('Delivery', DeliveryModel);
 
 
 /* GET delivery listing.    http://localhost:8081/api/delivery/         */
 router.get('/', function (req, res, next) {
-	var page = Number((req.query.page ?? 1) - 1); 
+	DeliveryModel.index({ '$**': 'text' });
+
+	var page = Number((req.query.page ?? 1) - 1);
 	var size = Number(req.query.size ?? 5);
 
 	Delivery.countDocuments((n, i) => {
@@ -42,7 +45,7 @@ router.get('/getById/:id', function (req, res, next) {
 			res.json(r[0])
 		}
 	)
-});
+}); 
 router.get('/_search', function (req, res, next) {
 
 	var page = Number((req.query.page ?? 1) - 1);
@@ -52,19 +55,19 @@ router.get('/_search', function (req, res, next) {
 	const query = { $text: { $search: searchQuery } }
 
 	console.log(query);
-	Delivery 
+	Delivery
 		.find(query,
 			(e, r) => {
-				res.setHeader('X-Total-Count', r.length) 
-				Delivery 
+				res.setHeader('X-Total-Count', r.length)
+				Delivery
 					.find(query,
-						(ee, rr) => { 
+						(ee, rr) => {
 							res.json(rr)
-						} 
+						}
 					)
 					.limit(size)
 					.skip(size * page);
-			} 
+			}
 		)
 
 });
@@ -80,10 +83,10 @@ router.post('/', async function (req, res, next) {
 
 router.route("/").put(function (req, res) {
 	const userID = req.params.id;
-	var { deliveryID, orderID, receiverAddress, assignedDriver, lat, long, status, _id,remarks } = req.body;
+	var { deliveryID, orderID, receiverAddress, assignedDriver, lat, long, status, _id, remarks } = req.body;
 
 
-	const query = { "_id":  mongoose.Types.ObjectId(_id) };
+	const query = { "_id": mongoose.Types.ObjectId(_id) };
 	const update = {
 		"$set": {
 			deliveryID,

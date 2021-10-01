@@ -3,12 +3,17 @@ var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
 const OrderModel = require('../models/orders.model');
+OrderModel.index({ '$**': 'text' });
 
 const Order = mongoose.model('order', OrderModel);
+
+// OrderModel.index({'$**': 'text'}); 
 // {$text: {$search: searchString}}
 /* GET  all order listing.    http://localhost:8081/api/order/         */
 
 router.get('/', function (req, res, next) {
+	OrderModel.index({ '$**': 'text' });
+
 	var page = Number((req.query.page ?? 1) - 1);
 	var size = Number(req.query.size ?? 5);
 
@@ -61,19 +66,21 @@ router.get('/_search', function (req, res, next) {
 	var searchQuery = req.query.query ?? '*';
 
 	const query = { $text: { $search: searchQuery } }
-
-	console.log(query);
-	Order
-		.find({ $text: { $search: query } },
-			(e, r) => {
-				res.setHeader('X-Total-Count', r.length)
-				Order.find({ $text: { $search: query } },
-					(ee, rr) => {
-						res.json(rr)
-					}
-				).limit(size).skip(size * page);
-			}
-		)
+	OrderModel.index({ '$**': 'text' });
+ 
+		console.log(query);
+		Order
+			.find(query,
+				(e, r) => {
+					res.setHeader('X-Total-Count', r.length)
+					Order.find(query,
+						(ee, rr) => {
+							res.json(rr)
+						} 
+					).limit(size).skip(size * page);
+				}
+			)
+ 
 
 });
 
