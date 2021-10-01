@@ -45,7 +45,7 @@ router.get('/getById/:id', function (req, res, next) {
 			res.json(r[0])
 		}
 	)
-});
+}); 
 router.get('/_search', function (req, res, next) {
 
 	var page = Number((req.query.page ?? 1) - 1);
