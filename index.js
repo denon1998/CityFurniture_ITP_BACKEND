@@ -1,11 +1,6 @@
 var express = require('express');
 var app = express();
-var cors = require('cors');
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger_output.json'); 
-
-app.use('/api-docs', swaggerUi.serve);
-app.get('/api-docs', swaggerUi.setup(swaggerDocument));
+var cors = require('cors'); 
 const mongoose = require('mongoose');
 
 const _PORT = process.env.PORT || 8081;
