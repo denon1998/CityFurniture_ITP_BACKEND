@@ -10,10 +10,11 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
     const username = req.body.username;
+    const email = req.body.email;
     const Type = req.body.Type;
     const password = req.body.password;
 
-    const newUser = new User({ username, Type, password, });
+    const newUser = new User({ username, email, Type, password, });
 
     newUser.save()
         .then(() => res.json('User added!'))
@@ -31,6 +32,7 @@ router.route('/update/:id').post((req, res) => {
     User.findById(req.params.id)
         .then(user => {
             user.username = req.body.username;
+            user.email = req.body.email;
             user.Type = req.body.Type;
             user.password = req.body.password;
 
